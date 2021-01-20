@@ -8,16 +8,10 @@ using UnityEngine.UIElements;
 [CustomEditor(typeof(NYImageTracker))]
 public class NYImageTrackerEditor : Editor
 {
-    Texture2D _lastTexture;
-    Vector2 _lastTrackerSize = new Vector2(1.0f, 1.0f);
-    float _sizeRatio = 1.0f;
-    int inspectorCounter = -1; // check if it first time selected
-
     public override VisualElement CreateInspectorGUI()
     {
         NYImageTracker targetScript = (NYImageTracker)target;
         GameObject targetObj = targetScript.gameObject;
-
 
         // check component
         if(!targetObj.GetComponent<MeshRenderer>())
@@ -97,40 +91,24 @@ public class NYImageTrackerEditor : Editor
         base.OnInspectorGUI();
         NYImageTracker _target = target as NYImageTracker;
 
-        // first frame of OnInspector!
-        if (inspectorCounter < 0)
-        {
-            _lastTexture = _target.trackerImage;
-            _lastTrackerSize = _target.physicalSize;
-            _sizeRatio = _target.physicalSize.y / _target.physicalSize.x;
-
-            ++inspectorCounter;
-        }
-        else if (inspectorCounter > 10000)
-        {
-            inspectorCounter = 100; // prevent int overflow
-        }
-
-
-
-        if (_target.trackerImage != _lastTexture)
+        if (_target.trackerImage != _target._lastTexture)
         {
             OnTextureChange();
-            UpdateMeshShape(_lastTrackerSize.x, _lastTrackerSize.y);
+            UpdateMeshShape(_target._lastTrackerSize.x, _target._lastTrackerSize.y);
         }
-        else if (_target.physicalSize != _lastTrackerSize)
+        else if (_target.physicalSize != _target._lastTrackerSize)
         {
-            if (_target.physicalSize.x != _lastTrackerSize.x)
+            if (_target.physicalSize.x != _target._lastTrackerSize.x)
             {
-                _target.physicalSize.y = _target.physicalSize.x * _sizeRatio;
+                _target.physicalSize.y = _target.physicalSize.x * _target._sizeRatio;
             }
-            else if (_target.physicalSize.y != _lastTrackerSize.y)
+            else if (_target.physicalSize.y != _target._lastTrackerSize.y)
             {
-                _target.physicalSize.x = _target.physicalSize.y / _sizeRatio;
+                _target.physicalSize.x = _target.physicalSize.y / _target._sizeRatio;
             }
 
-            _lastTrackerSize = _target.physicalSize;
-            UpdateMeshShape(_lastTrackerSize.x, _lastTrackerSize.y);
+            _target._lastTrackerSize = _target.physicalSize;
+            UpdateMeshShape(_target._lastTrackerSize.x, _target._lastTrackerSize.y);
         }
     }
 
@@ -139,33 +117,33 @@ public class NYImageTrackerEditor : Editor
         NYImageTracker targetScript = (NYImageTracker)target;
         GameObject targetObj = targetScript.gameObject;
 
-        if (targetScript.trackerImage != _lastTexture)
+        if (targetScript.trackerImage != targetScript._lastTexture)
         {
-            _lastTexture = targetScript.trackerImage;
+            targetScript._lastTexture = targetScript.trackerImage;
 
-            targetObj.GetComponent<MeshRenderer>().sharedMaterial.mainTexture = _lastTexture;
+            targetObj.GetComponent<MeshRenderer>().sharedMaterial.mainTexture = targetScript._lastTexture;
 
             // change size ratio
-            Vector2 textureSize = GetTextureSize(_lastTexture);
+            Vector2 textureSize = GetTextureSize(targetScript._lastTexture);
 
             Debug.Log("TEXTURE SIZE: " + textureSize);
 
-            _sizeRatio = (float)textureSize.y / (float)textureSize.x;
+            targetScript._sizeRatio = (float)textureSize.y / (float)textureSize.x;
 
             // landscape
             if(textureSize.x > textureSize.y)
             {
-                targetScript.physicalSize = new Vector2(1.0f, _sizeRatio);
+                targetScript.physicalSize = new Vector2(1.0f, targetScript._sizeRatio);
             }
             else // portrait
             {
-                targetScript.physicalSize = new Vector2(1.0f / _sizeRatio, 1.0f);
+                targetScript.physicalSize = new Vector2(1.0f / targetScript._sizeRatio, 1.0f);
             }
 
             targetObj.transform.localScale = Vector3.one;
 
             // update mesh
-            _lastTrackerSize = targetScript.physicalSize;
+            targetScript._lastTrackerSize = targetScript.physicalSize;
         }
     }
 

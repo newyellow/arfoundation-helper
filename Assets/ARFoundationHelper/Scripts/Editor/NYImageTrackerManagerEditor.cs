@@ -24,11 +24,12 @@ public class NYImageTrackerManagerEditor : Editor
         NYImageTracker[] trackers = GameObject.FindObjectsOfType<NYImageTracker>();
 
         Transform[] objs = new Transform[trackers.Length];
-        XRReferenceImageLibrary newLib = new XRReferenceImageLibrary();
-        
+        XRReferenceImageLibrary newLib = ScriptableObject.CreateInstance<XRReferenceImageLibrary>();
+
+        string debugText = "Found " + trackers.Length + " Trackers in Scene:\n";
         for (int i = 0; i < trackers.Length; i++)
         {
-            Debug.Log(trackers[i].gameObject.name);
+            debugText += "  " + trackers[i].gameObject.name + "\n";
             objs[i] = trackers[i].transform;
 
             XRReferenceImageLibraryExtensions.Add(newLib);
@@ -43,5 +44,7 @@ public class NYImageTrackerManagerEditor : Editor
 
         ((NYImageTrackerManager)target).targetLib = newLib;
         ((NYImageTrackerManager)target).trackerObjs = objs;
+
+        Debug.Log(debugText);
     }
 }

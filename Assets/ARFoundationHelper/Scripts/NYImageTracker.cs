@@ -18,6 +18,12 @@ public class NYImageTracker : MonoBehaviour
     Vector3 _grouperPosLocal;
     Quaternion _grouperRotDiff;
 
+    // for Editor use
+    [HideInInspector] public Texture2D _lastTexture;
+    [HideInInspector] public Vector2 _lastTrackerSize = new Vector2(1.0f, 1.0f);
+    [HideInInspector] public float _sizeRatio = 1.0f;
+    [HideInInspector] public int inspectorCounter = -1; // check if it first time selected
+
     public void Start()
     {
         if(hideTrackerWhenPlay)

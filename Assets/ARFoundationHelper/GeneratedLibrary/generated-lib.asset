@@ -12,36 +12,36 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 848409ee8ba454f42a5ddff137688a27, type: 3}
   m_Name: generated-lib
   m_EditorClassIdentifier: 
-  m_GuidLow: 4656081702332835798
-  m_GuidHigh: 9494684159968664717
+  m_GuidLow: 5541126785310548702
+  m_GuidHigh: 11831226913999303321
   m_Images:
   - m_SerializedGuid:
-      m_GuidLow: 4864000680471090593
-      m_GuidHigh: 4984976193693892247
+      m_GuidLow: 5104523539671673548
+      m_GuidHigh: 4959958618025443981
     m_SerializedTextureGuid:
       m_GuidLow: 313162111193621570
       m_GuidHigh: 14679713493253511466
-    m_Size: {x: 0.6756293, y: 1}
+    m_Size: {x: 0.096, y: 0.14208975}
     m_SpecifySize: 1
     m_Name: NY-ImageTracker-01
     m_Texture: {fileID: 0}
   - m_SerializedGuid:
-      m_GuidLow: 5572477066579652877
-      m_GuidHigh: 5835369232588208256
+      m_GuidLow: 4706761393458799015
+      m_GuidHigh: 4803363575805838725
     m_SerializedTextureGuid:
-      m_GuidLow: 1486652149880577189
-      m_GuidHigh: 17194762064842630793
+      m_GuidLow: 14172071748948094816
+      m_GuidHigh: 13134091660819088250
     m_Size: {x: 0.1328, y: 0.19323288}
     m_SpecifySize: 1
     m_Name: NY-ImageTracker-03
     m_Texture: {fileID: 0}
   - m_SerializedGuid:
-      m_GuidLow: 5323532953605482427
-      m_GuidHigh: 5798870507473332636
+      m_GuidLow: 4777790620300102084
+      m_GuidHigh: 10590157225431789451
     m_SerializedTextureGuid:
       m_GuidLow: 10730596080780451330
       m_GuidHigh: 4177209937435828744
-    m_Size: {x: 0.15, y: 0.15}
+    m_Size: {x: 1, y: 1}
     m_SpecifySize: 1
     m_Name: NY-ImageTracker-02
     m_Texture: {fileID: 0}

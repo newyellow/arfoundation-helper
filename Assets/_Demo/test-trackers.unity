@@ -769,6 +769,10 @@ MonoBehaviour:
   physicalSize: {x: 0.096, y: 0.14208975}
   hideTrackerWhenPlay: 1
   referenceGrouper: {fileID: 0}
+  _lastTexture: {fileID: 2800000, guid: eacea442934704582a59e249a5d1b8cb, type: 3}
+  _lastTrackerSize: {x: 0.096, y: 0.14208975}
+  _sizeRatio: 1.4801016
+  inspectorCounter: -1
 --- !u!4 &1286009807
 Transform:
   m_ObjectHideFlags: 0
@@ -882,6 +886,10 @@ MonoBehaviour:
   physicalSize: {x: 0.1328, y: 0.19323288}
   hideTrackerWhenPlay: 1
   referenceGrouper: {fileID: 0}
+  _lastTexture: {fileID: 2800000, guid: 37666f60502bc4ad7ac38a32c7aa45b6, type: 3}
+  _lastTrackerSize: {x: 0.1328, y: 0.19323288}
+  _sizeRatio: 1.4550669
+  inspectorCounter: -1
 --- !u!21 &1303221320
 Material:
   serializedVersion: 6
@@ -1542,7 +1550,7 @@ Mesh:
     vertexCount: 4
     localAABB:
       m_Center: {x: 0, y: 0, z: 0}
-      m_Extent: {x: 0.075, y: 0, z: 0.075}
+      m_Extent: {x: 0.5, y: 0, z: 0.5}
   m_Shapes:
     vertices: []
     shapes: []
@@ -1621,7 +1629,7 @@ Mesh:
       format: 0
       dimension: 0
     m_DataSize: 80
-    _typelessdata: 9a9999bd000000009a99993d000000000000803f9a99993d000000009a99993d0000803f0000803f9a9999bd000000009a9999bd00000000000000009a99993d000000009a9999bd0000803f00000000
+    _typelessdata: 000000bf000000000000003f000000000000803f0000003f000000000000003f0000803f0000803f000000bf00000000000000bf00000000000000000000003f00000000000000bf0000803f00000000
   m_CompressedMesh:
     m_Vertices:
       m_NumItems: 0
@@ -1676,7 +1684,7 @@ Mesh:
     m_UVInfo: 0
   m_LocalAABB:
     m_Center: {x: 0, y: 0, z: 0}
-    m_Extent: {x: 0.075, y: 0, z: 0.075}
+    m_Extent: {x: 0.5, y: 0, z: 0.5}
   m_MeshUsageFlags: 0
   m_BakedConvexCollisionMesh: 
   m_BakedTriangleCollisionMesh: 
@@ -1926,9 +1934,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   trackerImage: {fileID: 2800000, guid: 471e1e02bc4894ea082218694e6ef839, type: 3}
-  physicalSize: {x: 0.15, y: 0.15}
+  physicalSize: {x: 1, y: 1}
   hideTrackerWhenPlay: 1
   referenceGrouper: {fileID: 0}
+  _lastTexture: {fileID: 2800000, guid: 471e1e02bc4894ea082218694e6ef839, type: 3}
+  _lastTrackerSize: {x: 1, y: 1}
+  _sizeRatio: 1
+  inspectorCounter: -1
 --- !u!4 &2126107029
 Transform:
   m_ObjectHideFlags: 0
