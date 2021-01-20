@@ -63,29 +63,6 @@ public class NYImageTrackerEditor : Editor
         return _mesh;
     }
 
-    void UpdateMeshShape (float meshWidth, float meshHeight)
-    {
-        // check if there's mesh
-        GameObject targetObj = ((NYImageTracker)target).gameObject;
-
-        if(targetObj.GetComponent<MeshFilter>().sharedMesh == null)
-        {
-            targetObj.GetComponent<MeshFilter>().sharedMesh = CreateTrackerMesh();
-        }
-
-        // update vertices
-        Mesh targetMesh = targetObj.GetComponent<MeshFilter>().sharedMesh;
-
-        Vector3[] _verts = new Vector3[4];
-        _verts[0] = new Vector3(-0.5f * meshWidth, 0.0f, 0.5f * meshHeight);
-        _verts[1] = new Vector3(0.5f * meshWidth, 0.0f, 0.5f * meshHeight);
-        _verts[2] = new Vector3(-0.5f * meshWidth, 0.0f, -0.5f * meshHeight);
-        _verts[3] = new Vector3(0.5f * meshWidth, 0.0f, -0.5f * meshHeight);
-
-        targetMesh.vertices = _verts;
-        targetMesh.RecalculateBounds();
-    }
-
     public override void OnInspectorGUI()
     {
         base.OnInspectorGUI();
@@ -94,7 +71,7 @@ public class NYImageTrackerEditor : Editor
         if (_target.trackerImage != _target._lastTexture)
         {
             OnTextureChange();
-            UpdateMeshShape(_target._lastTrackerSize.x, _target._lastTrackerSize.y);
+            UpdateMeshShape(_target.physicalSize, _target.editScaler);
         }
         else if (_target.physicalSize != _target._lastTrackerSize)
         {
@@ -108,7 +85,12 @@ public class NYImageTrackerEditor : Editor
             }
 
             _target._lastTrackerSize = _target.physicalSize;
-            UpdateMeshShape(_target._lastTrackerSize.x, _target._lastTrackerSize.y);
+            UpdateMeshShape(_target.physicalSize, _target.editScaler);
+        }
+        else if(_target.editScaler != _target._lastEditScaler)
+        {
+            _target._lastEditScaler = _target.editScaler;
+            UpdateMeshShape(_target.physicalSize, _target.editScaler);
         }
     }
 
@@ -145,6 +127,34 @@ public class NYImageTrackerEditor : Editor
             // update mesh
             targetScript._lastTrackerSize = targetScript.physicalSize;
         }
+    }
+
+    void UpdateMeshShape(float meshWidth, float meshHeight)
+    {
+        // check if there's mesh
+        GameObject targetObj = ((NYImageTracker)target).gameObject;
+
+        if (targetObj.GetComponent<MeshFilter>().sharedMesh == null)
+        {
+            targetObj.GetComponent<MeshFilter>().sharedMesh = CreateTrackerMesh();
+        }
+
+        // update vertices
+        Mesh targetMesh = targetObj.GetComponent<MeshFilter>().sharedMesh;
+
+        Vector3[] _verts = new Vector3[4];
+        _verts[0] = new Vector3(-0.5f * meshWidth, 0.0f, 0.5f * meshHeight);
+        _verts[1] = new Vector3(0.5f * meshWidth, 0.0f, 0.5f * meshHeight);
+        _verts[2] = new Vector3(-0.5f * meshWidth, 0.0f, -0.5f * meshHeight);
+        _verts[3] = new Vector3(0.5f * meshWidth, 0.0f, -0.5f * meshHeight);
+
+        targetMesh.vertices = _verts;
+        targetMesh.RecalculateBounds();
+    }
+
+    void UpdateMeshShape(Vector2 meshSize, float scaler)
+    {
+        UpdateMeshShape(meshSize.x * scaler, meshSize.y * scaler);
     }
 
     Vector2 GetTextureSize(Texture2D targetTexture)
