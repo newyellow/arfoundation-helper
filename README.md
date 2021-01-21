@@ -6,10 +6,16 @@ AR Foundation is free and powerful. However, its editor user experience is not t
 
 ### WYSIWYG experience with *NY Image Tracker*
 
+![image](https://github.com/newyellow/arfoundation-helper/blob/main/docs/images/scene-editing.gif)
+
 ### On / Off tracking event handle
+
+![image](https://github.com/newyellow/arfoundation-helper/blob/main/docs/images/on-off-tracking.gif)
+* Just extend *NYImageTrackerEventHandler*, overriding OnTrackingFound and OnTrackingOff function, and then put with *NYImageTracker*
 
 ### Manage Image Tracker Library through a single button
 
+![image](https://github.com/newyellow/arfoundation-helper/blob/main/docs/images/update-library.gif)
 
 ## How to use
 
