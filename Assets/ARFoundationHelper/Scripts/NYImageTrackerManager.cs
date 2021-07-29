@@ -17,6 +17,10 @@ public class NYImageTrackerManager : MonoBehaviour
 
     int _imgIndex = 0;
 
+    // setting tracked image limit
+    Dictionary<int, NYImageTracker> trackedImgs = new Dictionary<int, NYImageTracker>();
+    int maxTrackImgCount = 0;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -32,6 +36,7 @@ public class NYImageTrackerManager : MonoBehaviour
 
         // init foundation ar image manager
         _foundationTrackerManager = GameObject.FindObjectOfType<ARTrackedImageManager>();
+        maxTrackImgCount = _foundationTrackerManager.currentMaxNumberOfMovingImages;
 
         Debug.Log("Get Manager: " + _foundationTrackerManager.gameObject.name);
         //_foundationTrackerManager = gameObject.AddComponent<ARTrackedImageManager>();
@@ -67,10 +72,26 @@ public class NYImageTrackerManager : MonoBehaviour
 
                 if (_arImg.trackingState == TrackingState.Tracking)
                 {
-                    trackerObjs[_imgIndex].GetComponent<NYImageTracker>().OnTrackingFound();
+                    if (maxTrackImgCount > 0)
+                    {
+                        if (trackedImgs.Count < maxTrackImgCount)
+                        {
+                            trackedImgs.Add(_imgIndex,trackerObjs[_imgIndex].GetComponent<NYImageTracker>());
+                            trackerObjs[_imgIndex].GetComponent<NYImageTracker>().OnTrackingFound();
+                        }
+                    }
+                    else
+                    {
+                        trackerObjs[_imgIndex].GetComponent<NYImageTracker>().OnTrackingFound();
+                    }
                 }
                 else if (_arImg.trackingState == TrackingState.Limited)
                 {
+                    if(maxTrackImgCount > 0)
+                    {
+                        trackedImgs.Remove(_imgIndex);
+                    }
+
                     trackerObjs[_imgIndex].GetComponent<NYImageTracker>().OnTrackingLost();
                 }
                 else if (_arImg.trackingState == TrackingState.None)
@@ -83,7 +104,16 @@ public class NYImageTrackerManager : MonoBehaviour
             // update data if tracked
             if (_arImg.trackingState == TrackingState.Tracking)
             {
-                UpdateTargetObjStatus(_arImg, _imgIndex);
+                if(maxTrackImgCount > 0)
+                {
+                    if (trackedImgs.ContainsKey(_imgIndex))
+                        UpdateTargetObjStatus(_arImg, _imgIndex);
+                }
+                else
+                {
+                    UpdateTargetObjStatus(_arImg, _imgIndex);
+                }
+                
             }
         }
     }
