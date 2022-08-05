@@ -10,6 +10,7 @@ public class NYImageTracker : MonoBehaviour
     float _playScaler = 1.0f;
 
     public bool hideTrackerWhenPlay = true;
+    public bool hideChildrensWhenLostTarget = false;
 
     public Transform referenceGrouper;
 
@@ -33,6 +34,12 @@ public class NYImageTracker : MonoBehaviour
         if(hideTrackerWhenPlay)
         {
             gameObject.GetComponent<MeshRenderer>().enabled = false;
+        }
+
+        if (hideChildrensWhenLostTarget)
+        {
+            gameObject.AddComponent<NYImageTrackerEventHandler>();
+            gameObject.GetComponent<NYImageTrackerEventHandler>().HideChildrensWhenLostTarget(hideChildrensWhenLostTarget);
         }
 
         // grab reference data before scale
