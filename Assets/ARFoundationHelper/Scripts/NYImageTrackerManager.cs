@@ -6,7 +6,9 @@ using UnityEngine.XR.ARFoundation;
 
 public class NYImageTrackerManager : MonoBehaviour
 {
+    [Tooltip("The library of images which will be detected and/or tracked in the physical environment.")]
     public XRReferenceImageLibrary targetLib;
+    [Tooltip("Detect trackers on runtime")]
     public Transform[] trackerObjs;
     TrackingState[] trackerStates;
 
@@ -19,7 +21,8 @@ public class NYImageTrackerManager : MonoBehaviour
 
     // setting tracked image limit
     Dictionary<int, NYImageTracker> trackedImgs = new Dictionary<int, NYImageTracker>();
-    int maxTrackImgCount = 0;
+    [Tooltip("The maximum number of moving images to track in realtime. Not all implementations support this feature.")]
+    public int maxTrackImgCount = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -36,10 +39,11 @@ public class NYImageTrackerManager : MonoBehaviour
 
         // init foundation ar image manager
         _foundationTrackerManager = GameObject.FindObjectOfType<ARTrackedImageManager>();
-        maxTrackImgCount = _foundationTrackerManager.currentMaxNumberOfMovingImages;
+        //maxTrackImgCount = _foundationTrackerManager.currentMaxNumberOfMovingImages;
 
         Debug.Log("Get Manager: " + _foundationTrackerManager.gameObject.name);
-        //_foundationTrackerManager = gameObject.AddComponent<ARTrackedImageManager>();
+        
+        _foundationTrackerManager.requestedMaxNumberOfMovingImages = maxTrackImgCount;
         _foundationTrackerManager.enabled = false;
         _foundationTrackerManager.referenceLibrary = targetLib;
         _foundationTrackerManager.enabled = true;
