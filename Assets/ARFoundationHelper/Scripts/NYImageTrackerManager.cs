@@ -19,7 +19,7 @@ public class NYImageTrackerManager : MonoBehaviour
 
     // setting tracked image limit
     Dictionary<int, NYImageTracker> trackedImgs = new Dictionary<int, NYImageTracker>();
-    int maxTrackImgCount = 0;
+    public int maxTrackImgCount = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -36,10 +36,11 @@ public class NYImageTrackerManager : MonoBehaviour
 
         // init foundation ar image manager
         _foundationTrackerManager = GameObject.FindObjectOfType<ARTrackedImageManager>();
-        maxTrackImgCount = _foundationTrackerManager.currentMaxNumberOfMovingImages;
+        //maxTrackImgCount = _foundationTrackerManager.currentMaxNumberOfMovingImages;
 
         Debug.Log("Get Manager: " + _foundationTrackerManager.gameObject.name);
-        //_foundationTrackerManager = gameObject.AddComponent<ARTrackedImageManager>();
+        
+        _foundationTrackerManager.requestedMaxNumberOfMovingImages = maxTrackImgCount;
         _foundationTrackerManager.enabled = false;
         _foundationTrackerManager.referenceLibrary = targetLib;
         _foundationTrackerManager.enabled = true;
