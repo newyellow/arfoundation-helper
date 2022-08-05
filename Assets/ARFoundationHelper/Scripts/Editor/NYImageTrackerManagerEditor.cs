@@ -17,6 +17,11 @@ public class NYImageTrackerManagerEditor : Editor
         {
             GenerateLibFromSceneSetting();
         }
+
+        if (GUILayout.Button("Create NY Image Tracker"))
+        {
+            GenerateNyImageTracker();
+        }
     }
 
     public void GenerateLibFromSceneSetting()
@@ -46,5 +51,26 @@ public class NYImageTrackerManagerEditor : Editor
         ((NYImageTrackerManager)target).trackerObjs = objs;
 
         Debug.Log(debugText);
+    }
+
+    public void GenerateNyImageTracker()
+    {
+        GameObject nyImageTracker = new GameObject();
+        nyImageTracker.AddComponent<NYImageTracker>();
+        nyImageTracker.name = GetNameNyImageTrackerObj();
+    }
+
+    private string GetNameNyImageTrackerObj()
+    {
+        int nyImageTrackoutSceneCount = FindObjectsOfType<NYImageTracker>().Length;
+
+        if(nyImageTrackoutSceneCount <= 9)
+        {
+            return $"NY-ImageTracker-0{nyImageTrackoutSceneCount}";
+        }
+        else
+        {
+            return $"NY-ImageTracker-{nyImageTrackoutSceneCount}";
+        }
     }
 }
